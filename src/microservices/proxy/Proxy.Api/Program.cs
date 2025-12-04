@@ -1,4 +1,5 @@
 using Proxy_Api.Configuration;
+using Yarp.ReverseProxy.LoadBalancing;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,7 @@ builder.Services.AddReverseProxy()
     .LoadFromConfig(builder.Configuration.GetSection("Yarp"))
     .AddConfigFilter<YarpEnvironmentVariablesConfigFilter>();
 
+builder.Services.AddSingleton<ILoadBalancingPolicy, CancaryLoadBalancingPolicy>();
 
 var app = builder.Build();
 
