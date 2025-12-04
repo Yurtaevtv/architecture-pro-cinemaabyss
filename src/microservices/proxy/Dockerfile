@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS base
 
 USER root
 WORKDIR /app
-EXPOSE 5000
+EXPOSE ${ASPNETCORE_HTTP_PORTS}
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
 WORKDIR /src
