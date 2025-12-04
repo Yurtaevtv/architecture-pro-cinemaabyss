@@ -23,9 +23,22 @@ namespace Events.api.Components.MessageBroker.Implementation
 
         }
 
-        public Task PublishEventAsync(string @event)
+
+        public Task PublishUserEventAsync(string @event)
         {
-            return _producer.ProduceAsync(_settings.Value.DeviceTelemetryTopic,
+            return _producer.ProduceAsync("user-events",
+                new Message<string, string>() { Key = Guid.NewGuid().ToString("N"), Value = @event });
+        }
+
+        public Task PublishMovieEventAsync(string @event)
+        {
+            return _producer.ProduceAsync("movie-events",
+                new Message<string, string>() { Key = Guid.NewGuid().ToString("N"), Value = @event });
+        }
+
+        public Task PublishPaymentEventAsync(string @event)
+        {
+            return _producer.ProduceAsync("payment-events",
                 new Message<string, string>() { Key = Guid.NewGuid().ToString("N"), Value = @event });
         }
     }

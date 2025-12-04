@@ -22,7 +22,9 @@ builder.Services.AddOptions<KafkaSettings>()
     .ValidateOnStart();
 
 builder.Services.AddTransient<IEventProducer, KafkaEventProducer>();
-builder.Services.AddTransient<IEventConsumer, KafkaEventConsumer>();
+builder.Services.AddTransient<IEventConsumer, KafkaMovieEventConsumer>();
+builder.Services.AddTransient<IEventConsumer, KafkaUserEventConsumer>();
+builder.Services.AddTransient<IEventConsumer, KafkaPaymentEventConsumer>();
 
 
 builder.Services.AddHealthChecks()

@@ -10,19 +10,19 @@ namespace Events.api.Controllers
         [HttpPost("user")]
         public async Task<IActionResult> UserAsync()
         {
-            await producer.PublishEventAsync("USER");
+            await producer.PublishUserEventAsync("USER");
             return Ok();
         }
         [HttpPost("movie")]
         public async Task<IActionResult> MovieAsync()
         {
-            await producer.PublishEventAsync("MOVIE");
+            await producer.PublishMovieEventAsync("MOVIE");
             return Ok();
         }
         [HttpPost("payment")]
         public async Task<IActionResult> PaymentAsync()
         {
-            await producer.PublishEventAsync("PAYMENT");
+            await producer.PublishPaymentEventAsync("PAYMENT");
             return Ok();
         }
 

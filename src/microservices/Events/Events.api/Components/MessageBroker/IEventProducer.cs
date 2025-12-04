@@ -3,7 +3,9 @@
     public interface IEventProducer
     {
 
-        Task PublishEventAsync(string @event);
+        Task PublishUserEventAsync(string @event);
+        Task PublishMovieEventAsync(string @event);
+        Task PublishPaymentEventAsync(string @event);
 
     }
 }

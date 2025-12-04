@@ -5,12 +5,14 @@ using Microsoft.Extensions.Options;
 
 namespace Events.api.Components.MessageBroker.Implementation
 {
-    public class KafkaEventConsumer : IEventConsumer
+    public abstract class KafkaEventConsumer : IEventConsumer
     {
         private readonly IConsumer<string, string> _consumer;
 
         protected readonly IOptions<KafkaSettings> _settings;
         protected readonly ILogger<KafkaEventConsumer> _logger;
+
+        protected abstract string Topic { get; }
 
         public KafkaEventConsumer(IOptions<KafkaSettings> settings,
             ILogger<KafkaEventConsumer> logger)

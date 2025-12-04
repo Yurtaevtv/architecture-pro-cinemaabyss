@@ -4,7 +4,7 @@ using static Confluent.Kafka.ConfigPropertyNames;
 
 namespace Events.api.Background
 {
-    public class ConsumerBackgroudService(IEventConsumer consumer) : BackgroundService
+    public class ConsumerBackgroudService(IEnumerable<IEventConsumer> consumers) : BackgroundService
     {
         private CancellationTokenSource _cancellationTokenSource;
 
@@ -12,7 +12,7 @@ namespace Events.api.Background
         {
             _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(stoppingToken);
 
-            return Task.Run(() => consumer.StartConsumingAsync(_cancellationTokenSource.Token), stoppingToken);
+            return Task.Run(() => consumers.Select(c => c.StartConsumingAsync(_cancellationTokenSource.Token)), stoppingToken);
         }
 
         public override Task StopAsync(CancellationToken cancellationToken)
@@ -23,7 +23,10 @@ namespace Events.api.Background
 
         public override void Dispose()
         {
-            consumer.Dispose();
+            foreach (IEventConsumer consumer in consumers)
+            {
+                consumer.Dispose();
+            }
             GC.SuppressFinalize(this);
             base.Dispose();
         }
