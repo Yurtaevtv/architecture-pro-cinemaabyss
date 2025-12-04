@@ -8,6 +8,7 @@ namespace Events.api.Controllers
     public class EventsController(IEventProducer producer) : Controller
     {
         [HttpPost("user")]
+        [HttpGet("user")]
         public async Task<IActionResult> UserAsync()
         {
             await producer.PublishUserEventAsync("USER");

@@ -12,7 +12,7 @@ namespace Events.api.Background
         {
             _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(stoppingToken);
 
-            return Task.Run(() => consumers.Select(c => c.StartConsumingAsync(_cancellationTokenSource.Token)), stoppingToken);
+            return Task.WhenAll(consumers.Select(c => Task.Run(() => c.StartConsumingAsync(_cancellationTokenSource.Token), stoppingToken)));
         }
 
         public override Task StopAsync(CancellationToken cancellationToken)

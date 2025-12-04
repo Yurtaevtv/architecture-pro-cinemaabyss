@@ -22,7 +22,7 @@ namespace Events.api.Components.MessageBroker.Implementation
             var config = new ConsumerConfig
             {
                 BootstrapServers = settings.Value.BootstrapServers,
-                GroupId = _settings.Value.DeviceTelemetryTopic,
+                GroupId = Topic,
                 AutoOffsetReset = AutoOffsetReset.Latest,
                 EnableAutoCommit = true
             };
@@ -33,8 +33,8 @@ namespace Events.api.Components.MessageBroker.Implementation
 
         public async Task StartConsumingAsync(CancellationToken token)
         {
-            _consumer.Subscribe(_settings.Value.DeviceTelemetryTopic);
-            _logger.LogInformation("Kafka WebSocket consumer started. Topics: {Topics}", _settings.Value.DeviceTelemetryTopic);
+            _consumer.Subscribe(Topic);
+            _logger.LogInformation("Kafka WebSocket consumer started. Topics: {Topics}", Topic);
 
             while (!token.IsCancellationRequested)
             {
