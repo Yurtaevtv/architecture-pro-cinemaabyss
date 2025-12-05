@@ -16,7 +16,8 @@
       "launchUrl": "weatherforecast",
       "applicationUrl": "http://localhost:5143",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "Kafka__BootstrapServers": "localmac:9092"
       }
     },
     "https": {

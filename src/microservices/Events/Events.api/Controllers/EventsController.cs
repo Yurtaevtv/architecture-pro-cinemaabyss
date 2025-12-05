@@ -1,4 +1,5 @@
-﻿using Events.api.Components.MessageBroker;
+﻿using System.Net;
+using Events.api.Components.MessageBroker;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Events.api.Controllers
@@ -11,18 +12,21 @@ namespace Events.api.Controllers
         public async Task<IActionResult> UserAsync()
         {
             await producer.PublishUserEventAsync("USER");
+            Response.StatusCode = (int)HttpStatusCode.Created;
             return Created();
         }
         [HttpPost("movie")]
         public async Task<IActionResult> MovieAsync()
         {
             await producer.PublishMovieEventAsync("MOVIE");
+            Response.StatusCode = (int)HttpStatusCode.Created;
             return Created();
         }
         [HttpPost("payment")]
         public async Task<IActionResult> PaymentAsync()
         {
             await producer.PublishPaymentEventAsync("PAYMENT");
+            Response.StatusCode = (int)HttpStatusCode.Created;
             return Created();
         }
 
