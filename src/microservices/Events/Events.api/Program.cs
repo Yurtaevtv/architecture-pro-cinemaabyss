@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddLogging(logBuilder =>
     {
         logBuilder.ClearProviders();
-        logBuilder.SetMinimumLevel(LogLevel.Trace);
+        logBuilder.SetMinimumLevel(LogLevel.Debug);
         logBuilder.AddConsole();
         logBuilder.AddNLog("NLog.config");
     }
