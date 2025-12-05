@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddLogging(logBuilder =>
     {
         logBuilder.ClearProviders();
-        logBuilder.SetMinimumLevel(LogLevel.Trace);
+        logBuilder.SetMinimumLevel(LogLevel.Debug);
         logBuilder.AddConsole();
         logBuilder.AddNLog("NLog.config");
     }
@@ -43,10 +43,6 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 
 app.UseHealthChecks("/api/events/health");
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
 
 app.MapControllers();
 

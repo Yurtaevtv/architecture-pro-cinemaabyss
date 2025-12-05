@@ -17,9 +17,10 @@
       "applicationUrl": "http://localhost:5150",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "Yarp__Clusters__movies__Destinations__microservice__Address": "http://localmac:8081",
-        "Yarp__Clusters__movies__Destinations__monolith__Address": "http://localmac:8080",
+        "Yarp__Clusters__events__Destinations__events__Address": "http://localmac:8082",
         "Yarp__Clusters__monolith__Destinations__monolith__Address": "http://localmac:8080",
+        "Yarp__Clusters__movies__Destinations__monolith__Address": "http://localmac:8080",
+        "Yarp__Clusters__movies__Destinations__microservice__Address": "http://localmac:8081",
         "Yarp__Clusters__movies__Destinations__monolith__Metadata__Chance": "95",
         "Yarp__Clusters__movies__Destinations__monolith__Metadata__SwitchOn": "true"
       }
