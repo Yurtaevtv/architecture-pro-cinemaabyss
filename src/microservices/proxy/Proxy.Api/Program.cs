@@ -10,10 +10,12 @@ builder.Services.AddReverseProxy()
     .AddConfigFilter<YarpEnvironmentVariablesConfigFilter>();
 
 builder.Services.AddSingleton<ILoadBalancingPolicy, CancaryLoadBalancingPolicy>();
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.MapHealthChecks("/health");
 
 app.MapReverseProxy();
 
