@@ -32,6 +32,8 @@ jobs:
       - name: Set up Docker Compose
         run: |
           docker compose --version
+          ls ./src/microservices
+          git branch -a
       
       - name: Start services with Docker Compose
         run: |
