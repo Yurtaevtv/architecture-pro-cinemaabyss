@@ -3,6 +3,9 @@ using Events.api.Background;
 using Events.api.Components.MessageBroker;
 using Events.api.Components.MessageBroker.Implementation;
 using Events.api.Models;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+
 using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -42,7 +45,7 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
-app.UseHealthChecks("/api/events/health");
+app.UseHealthChecks("/api/events/health", new HealthCheckOptions() { ResponseWriter = (hc, hr) => hc.Response.WriteAsJsonAsync(new { status = hr.Status == HealthStatus.Healthy }) });
 
 app.MapControllers();
 
