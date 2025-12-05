@@ -33,7 +33,8 @@ jobs:
 
 
       - name: Check GITHUB_TOKEN exists
-        run: echo "Token length: ${#GITHUB_TOKEN}"
+        run: |
+          echo "Token length: ${#GITHUB_TOKEN}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
