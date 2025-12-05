@@ -32,7 +32,7 @@ jobs:
       - name: Set up Docker Compose
         run: |
           docker compose --version
-          ls
+          ls ./src/microservices
       
       - name: Start services with Docker Compose
         run: |
