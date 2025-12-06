@@ -40,9 +40,7 @@ jobs:
       - name: Build static BusyBox
         run: |
           cd busybox-1.37.0
-          make LDFLAGS="--static" \
-              busybox \
-              install
+          make busybox install
 
       - name: Log in to the Container registry
         uses: docker/login-action@v2
