@@ -187,6 +187,8 @@ cat .docker/config.json | base64
   9. Добавьте в /etc/hosts
   127.0.0.1 cinemaabyss.example.com
 
+
+
   10. Вызовите
   ```bash
   minikube tunnel
