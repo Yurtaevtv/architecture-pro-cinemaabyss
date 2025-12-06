@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proxy-service
+  namespace: cinemaabyss
+  labels:
+    app: proxy-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: proxy-service
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: proxy-service
+    spec:
+      containers:
+      - name: proxy-service
+        image:  ghcr.io/yurtaevtv/architecture-pro-cinemaabyss/proxy-service:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+        env:
+        - name: ASPNETCORE_HTTP_PORTS
+          value: "8000"
+        - name: Yarp__Clusters__monolith__Destinations__monolith__Address
+          value: "${MONOLITH_URL}"
+        - name: Yarp__Clusters__events__Destinations__events__Address
+          value: "${EVENTS_SERVICE_URL}"
+        - name: Yarp__Clusters__movies__Destinations__monolith__Address
+          value: "${MONOLITH_URL}"
+        - name: Yarp__Clusters__movies__Destinations__monolith__Metadata__SwitchOn
+          value: "${GRADUAL_MIGRATION}"
+        - name: Yarp__Clusters__movies__Destinations__monolith__Metadata__Chance
+          value: "${MOVIES_MIGRATION_PERCENT}"
+        - name: Yarp__Clusters__movies__Destinations__microservice__Address
+          value: "${MOVIES_SERVICE_URL}"
+        envFrom:
+        - configMapRef:
+            name: cinemaabyss-config
+        - secretRef:
+            name: cinemaabyss-secrets
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 20
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: dockerconfigjson
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxy-service
+  namespace: cinemaabyss
+spec:
+  selector:
+    app: proxy-service
+  ports:
+  - port: 8000
+    targetPort: 8000
+  type: ClusterIP
