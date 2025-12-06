@@ -37,11 +37,15 @@ jobs:
           tar xjf busybox-1.37.0.tar.bz2
           cd busybox-1.37.0
 
-      - name: Generate default config
+      - name: Build static BusyBox
         run: |
           cd busybox-1.37.0
-          make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- defconfig
-
+          make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- \
+              CROSS_COMPILE_KERNEL=aarch64-linux-gnu- \
+              CONFIG_PREFIX=../rootfs \
+              LDFLAGS="--static" \
+              busybox \
+              install
 
       - name: Log in to the Container registry
         uses: docker/login-action@v2
