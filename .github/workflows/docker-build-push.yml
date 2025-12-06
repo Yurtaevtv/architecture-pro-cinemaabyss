@@ -36,7 +36,7 @@ jobs:
           wget https://busybox.net/downloads/busybox-1.37.0.tar.bz2
           tar xjf busybox-1.37.0.tar.bz2
           cd busybox-1.37.0
-          
+
       - name: Copy shared libraries
         run: |
           cp $(aarch64-linux-gnu-gcc -print-file-name=libc.so) rootfs/lib/
@@ -45,10 +45,7 @@ jobs:
       - name: Build static BusyBox
         run: |
           cd busybox-1.37.0
-          make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- \
-              CROSS_COMPILE_KERNEL=aarch64-linux-gnu- \
-              CONFIG_PREFIX=../rootfs \
-              LDFLAGS="--static" \
+          make LDFLAGS="--static" \
               busybox \
               install
 
