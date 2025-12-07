@@ -4,8 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RuntimeIdentifiers>linux-x64</RuntimeIdentifiers>
-</PropertyGroup>
+ </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="librdkafka.redist" Version="2.12.1" />
