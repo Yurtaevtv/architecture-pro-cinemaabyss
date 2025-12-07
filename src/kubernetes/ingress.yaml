@@ -32,7 +32,7 @@ spec:
             name: monolith
             port:
               number: 8080
-      - path: /api/proxy
+      - path: /
         pathType: Prefix
         backend:
           service:
